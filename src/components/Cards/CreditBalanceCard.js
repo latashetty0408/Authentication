@@ -1,6 +1,6 @@
 import React from "react";
 import ActivityCard from "./ActivityCard";
-import { Landmark, Car, GraduationCap } from "lucide-react";
+import { useApp } from "../../Context/Context";
 
 const IconCard = ({ Icon, bgColor }) => (
   <div className={`w-12 h-12 ${bgColor} flex items-center justify-center rounded-full`}>
@@ -8,26 +8,8 @@ const IconCard = ({ Icon, bgColor }) => (
   </div>
 );
 function CreditBalanceCard() {
-  const transfers = [
-    {
-      name: "Bill & Taxes",
-      amount: "-$154.50",
-      date: "Today 16:36",
-      imageUrl: Landmark,
-    },
-    {
-      name: "Car Energy",
-      amount: "-$40.50",
-      date: "23 Jun, 13:06",
-      imageUrl: Car,
-    },
-    {
-      name: "Design Course",
-      amount: "-$70.00",
-      date: "21 Jun, 19:04",
-      imageUrl: GraduationCap,
-    },
-  ];
+  const { creditList } = useApp();
+
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200 flex flex-col gap-6">
       <ActivityCard
@@ -40,24 +22,24 @@ function CreditBalanceCard() {
       <div className="space-y-4">
         <h3 className="text-lg font-medium mb-4">Recents</h3>
 
-        {transfers.map((transfer) => (
+        {creditList.map((credits) => (
           <div
-            key={transfer.name}
+            key={credits.name}
             className="flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-full">
-                <IconCard Icon={transfer.imageUrl} bgColor="bg-[#F5F7FE]" />
+                <IconCard Icon={credits.imageUrl} bgColor="bg-[#F5F7FE]" />
               </div>
               <div>
-                <div className="font-medium">{transfer.name}</div>
-                <div className="text-sm text-gray-500">{transfer.date}</div>
+                <div className="font-medium">{credits.name}</div>
+                <div className="text-sm text-gray-500">{credits.date}</div>
               </div>
             </div>
             <span
               className={`rounded-xl px-2 py-1`}
             >
-              {transfer.amount}
+              {credits.amount}
             </span>
           </div>
         ))}

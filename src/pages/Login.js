@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -30,9 +30,10 @@ function Login() {
 
 
   const navigate = useNavigate();
-  const { authError, setAuthError } = useApp('');
-  const [loading, setLoading] = useState(false); 
+  const { authError, setAuthError, loading, setLoading } = useApp('');
+
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const response = await axios.get(`${apiUrl}/users`);
       const user = response.data.find(user => user.username === data.username && user.password === data.password);
@@ -43,6 +44,7 @@ function Login() {
         setTimeout(() => {
           setLoading(false);
           navigate('/dashboard');
+          setAuthError('');
         }, 1500);
       } else {
         setAuthError('Invalid username or password');

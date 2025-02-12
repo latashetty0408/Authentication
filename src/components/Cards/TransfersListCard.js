@@ -1,27 +1,8 @@
 import { MoveRight } from "lucide-react";
-import { Logo } from "../../assets/images/Index";
+import { useApp } from "../../Context/Context";
 
 function TransfersListCard() {
-  const transfers = [
-    {
-      name: "Alex Manda",
-      amount: "+$50",
-      date: "Today 16:25",
-      imageUrl: Logo.Profile_1,
-    },
-    {
-      name: "Laura Santos",
-      amount: "-$27",
-      date: "Today 16:23",
-      imageUrl: Logo.Profile_2,
-    },
-    {
-      name: "Jaden S.",
-      amount: "+$157",
-      date: "Today 16:15",
-      imageUrl: Logo.Profile_3,
-    },
-  ];
+  const { transfers } = useApp()
 
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200 flex flex-col">

@@ -1,19 +1,19 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": 1739404598369,
       "firstName": "Test",
       "lastName": "Test",
       "mobileNumber": "6000000000",
       "email": "Test@gmail.com",
       "nationality": "IN",
-      "dateOfBirth": "2025-02-12",
+      "dateOfBirth": "1978-05-04",
       "gender": "male",
-      "occupation": "professional",
+      "occupation": "student",
       "yearsOfExperience": "0-2",
       "website": "",
-      "password": "Test@123",
-      "confirmPassword": "Test@123",
+      "password": "Test@1234",
+      "confirmPassword": "Test@1234",
       "username": "Test@gmail.com"
     }
   ]

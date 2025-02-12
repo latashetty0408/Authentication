@@ -10,11 +10,13 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Logo } from '../assets/images/Index';
 import { useApp } from '../Context/Context';
+import Loader from '../components/Loader/Loader';
 
 const schema = z.object({
-  firstName: z.string().min(1, 'First Name is required'),
-  lastName: z.string().min(1, 'Last Name is required'),
-  mobileNumber: z.string().min(1, 'Mobile Number is required'),
+  firstName: z.string().min(1, 'First Name is required').regex(/^[A-Za-z]+$/, 'First Name should contain only alphabets'),
+  lastName: z.string().min(1, 'Last Name is required').regex(/^[A-Za-z]+$/, 'Last Name should contain only alphabets'),
+  mobileNumber: z.string().min(1, 'Mobile Number is required').refine((val) => /^\d{10}$/.test(val), { message: 'Mobile Number must be exactly 10 digits' })
+  .refine((val) => /^[6-9]/.test(val), { message: 'Mobile Number must start with 6, 7, 8, or 9' }),
   email: z.string().min(1, 'Email is required').refine(value => /\S+@\S+\.\S+/.test(value), {
     message: 'Invalid email address',
   }),
@@ -41,20 +43,24 @@ function SignUp() {
   const today = new Date().toISOString().split('T')[0];
   // console.log(today, 'today');
 
-  const { nationalityOptions, occupationOptions, yearsOfExperienceOptions, genderOptions } = useApp();
-  let lastId = 0;
-  const navigate = useNavigate()
+  const { nationalityOptions, occupationOptions, yearsOfExperienceOptions, genderOptions, setLoading, loading } = useApp();
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     data.username = data.email;
-    lastId += 1;
+    setLoading(true);
     try {
       await axios.post(`${apiUrl}/users`, {
         ...data,
-        id: lastId,
+        id: Date.now(),
       });
       console.log('User registered successfully');
-      navigate('/login');
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/login');
+      }, 1500);
     } catch (error) {
+      setLoading(false);
       console.error('Error registering user:', error);
     }
   };
@@ -69,6 +75,7 @@ function SignUp() {
           <Heading level={2}>Welcome to ABC</Heading>
           <p className="text-gray-600">Where Financial Wisdom Meets Technology</p>
           <Heading level={3} className="mt-6">Sign up</Heading>
+          {loading ? <Loader /> : ( 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
             <div className='flex justify-between gap-4'>
               <Input width="w-1/2" label="First Name" type="text" name="firstName" register={register} errors={errors} />
@@ -86,18 +93,19 @@ function SignUp() {
             <Input label="Re-enter password" type="password" name="confirmPassword" register={register} errors={errors} />
             <Button type="submit">Create account</Button>
             <p className="text-sm text-gray-600 mt-2">
-              By creating an account you agree to our
-              <Link to={"#"} className="text-indigo-600 hover:underline">
-                Terms & Policies
+              By creating an account you agree to our{" "}
+              <Link to={"#"} className="text-indigo-600 hover:underline font-semibold">
+                 Terms & Policies
               </Link>
             </p>
             <p className="text-sm text-gray-600 mt-2">
               Already have an account?
-              <Link to={"/login"} className="text-indigo-600 hover:underline">
-                Log In
+              <Link to={"/login"} className="text-indigo-600 hover:underline font-semibold">
+                {" "}Log In
               </Link>
             </p>
           </form>
+          )}
         </div>
       </div>
     </div>

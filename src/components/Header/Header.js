@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const [name, setName] = useState()
+  const [name, setName] = useState();
   const navigate = useNavigate()
 
   const getData = () => {
     let userData = sessionStorage.getItem('userData');
     // console.dir(userData, {depth:10});
+    
     if (!userData) {
       navigate('/login')
       return;

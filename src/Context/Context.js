@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react"
-import { Activity, Calendar, CreditCard, LayoutGrid, Library, LogOut, Settings, Shield } from "lucide-react";
+import { Activity, Calendar, Car, CreditCard, GraduationCap, Landmark, LayoutGrid, Library, LogOut, Settings, Shield } from "lucide-react";
 import ActivityCard from "../components/Cards/ActivityCard";
 import CreditBalanceCard from "../components/Cards/CreditBalanceCard";
 import TrymeCard from "../components/Cards/TrymeCard";
 import TransfersListCard from "../components/Cards/TransfersListCard";
 import BalanceCard from "../components/Cards/BalanceCard";
+import { Logo } from "../assets/images/Index";
 
 const AppContext = createContext({})
 
@@ -13,6 +14,7 @@ export function AppProvider({ children }) {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [authError, setAuthError] = useState(null);
   const [timeframe, setTimeframe] = useState("Monthly");
+  const [loading, setLoading] = useState(false);
 
   const [activityData, setActivityData] = useState({
     current: 540.5,
@@ -129,27 +131,66 @@ export function AppProvider({ children }) {
     },
   ]);
 
+  const creditList = [
+    {
+      name: "Bill & Taxes",
+      amount: "-$154.50",
+      date: "Today 16:36",
+      imageUrl: Landmark,
+    },
+    {
+      name: "Car Energy",
+      amount: "-$40.50",
+      date: "23 Jun, 13:06",
+      imageUrl: Car,
+    },
+    {
+      name: "Design Course",
+      amount: "-$70.00",
+      date: "21 Jun, 19:04",
+      imageUrl: GraduationCap,
+    },
+  ];
+
+  const transfers = [
+    {
+      name: "Alex Manda",
+      amount: "+$50",
+      date: "Today 16:25",
+      imageUrl: Logo.Profile_1,
+    },
+    {
+      name: "Laura Santos",
+      amount: "-$27",
+      date: "Today 16:23",
+      imageUrl: Logo.Profile_2,
+    },
+    {
+      name: "Jaden S.",
+      amount: "+$157",
+      date: "Today 16:15",
+      imageUrl: Logo.Profile_3,
+    },
+  ];
   return (
     <AppContext.Provider
       value={{
         navigation,
-        authError,
-        setAuthError,
-        isSidebarOpen,
-        setIsSidebarOpen,
-        activeMenu,
-        setActiveMenu,
-        activityData,
-        setActivityData,
-        timeframe,
-        setTimeframe,
+        authError, setAuthError,
+        isSidebarOpen, setIsSidebarOpen,
+        activeMenu, setActiveMenu,
+        activityData, setActivityData,
+        timeframe, setTimeframe,
         nationalityOptions,
         occupationOptions,
         yearsOfExperienceOptions,
         genderOptions,
         rowFirst, setRowFirst,
         rowSecond, setRowSecond,
-        rowThird, setRowThird
+        rowThird, setRowThird,
+        loading, setLoading,
+        transfers,
+        creditList
       }}
     >
       {children}
