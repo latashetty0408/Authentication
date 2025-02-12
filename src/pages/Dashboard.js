@@ -1,5 +1,5 @@
 import { useApp } from "../Context/Context";
-import SortableItem from "../components/DragAndDrop/DragAndDrop";
+import SortableItem from "../components/DragAndDrop/SortableItem";
 import Layout from "../components/Layout/Layout";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
