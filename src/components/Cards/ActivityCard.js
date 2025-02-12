@@ -6,7 +6,7 @@ export default function ActivityCard({ title, amount, chart, bgColor, textColor,
   return (
     <div className={`${bgColor} ${textColor} p-4 rounded-xl flex lg:gap-5 gap-2 xl:flex-row flex-col`}>
       {CircularIcon && (
-        <div className="mt-2 h-16 lg:w-1/2">
+        <div className="mt-2 h-16">
           <CircularChartIcon />
         </div>
       )}
@@ -20,7 +20,7 @@ export default function ActivityCard({ title, amount, chart, bgColor, textColor,
         </div>
       )}
       {progressBar && (
-        <div className="mt-2 h-16 lg:w-1/2">
+        <div className="mt-2 h-16">
           <BarChartIcon />
         </div>
       )}

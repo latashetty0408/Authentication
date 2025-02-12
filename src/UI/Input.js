@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
-const Input = ({ label, type, name, register, errors, width }) => {
+const Input = ({ label, type, name, register, errors, width, max }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -14,6 +14,7 @@ const Input = ({ label, type, name, register, errors, width }) => {
         id={name}
         type={type === 'password' && showPassword ? 'text' : type}
         {...register(name)}
+        max={type === 'date' ? max : undefined}
         className="mt-1 block w-full p-2 border rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
       />
       {errors[name] && <span className="text-red-600">{errors[name].message}</span>}

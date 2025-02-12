@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useEffect, useState } from 'react'
 import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Heading from '../UI/Heading';
 import Input from '../UI/Input';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Logo } from '../assets/images/Index';
 import { useApp } from '../Context/Context';
+import Loader from '../components/Loader/Loader';
 
 const schema = z.object({
   username: z.string().min(1, 'Username is required'),
@@ -16,6 +17,9 @@ const schema = z.object({
 });
 
 function Login() {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log('API URL:', apiUrl);
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
@@ -26,35 +30,43 @@ function Login() {
 
 
   const navigate = useNavigate();
-  const { authError, setAuthError } = useApp()
+  const { authError, setAuthError } = useApp('');
+  const [loading, setLoading] = useState(false); 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.get('http://localhost:4000/users');
+      const response = await axios.get(`${apiUrl}/users`);
       const user = response.data.find(user => user.username === data.username && user.password === data.password);
       if (user) {
         console.log('Login successful');
-        const {id, firstName, lastName, email} = user;
-        sessionStorage.setItem('userData', JSON.stringify({id, firstName, lastName, email}));
-        navigate('/dashboard')
+        const { id, firstName, lastName, email } = user;
+        sessionStorage.setItem('userData', JSON.stringify({ id, firstName, lastName, email }));
+        setTimeout(() => {
+          setLoading(false);
+          navigate('/dashboard');
+        }, 1500);
       } else {
         setAuthError('Invalid username or password');
+        setLoading(false);
       }
     } catch (error) {
       console.error('Error logging in:', error);
       setAuthError('An error occurred while logging in');
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <div className="hidden lg:block relative w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${Logo.Background})` }}>
+      <div className="hidden lg:block relative w-1/2 bg-cover h-screen bg-center" style={{ backgroundImage: `url(${Logo.Background})`, 
+     }}>
         <div className="absolute inset-0  opacity-50"></div>
       </div>
       <div className="p-6 sm:p-12 w-full lg:w-1/2">
-        <div className="w-full max-w-md p-6">
+        <div className="w-full lg:max-w-md p-6">
           <Heading level={2}>Welcome to ABC</Heading>
           <p className="text-gray-600">Where Financial Wisdom Meets Technology</p>
           <Heading level={3} className="mt-24">Log in with your credentials</Heading>
+          {loading ? <Loader /> : ( 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-4">
             <Input label="Username" type="text" name="username" register={register} errors={errors} />
             <Input label="Password" type="password" name="password" register={register} errors={errors} />
@@ -69,6 +81,7 @@ function Login() {
               </Link>
             </p>
           </form>
+          )}
         </div>
       </div>
     </div>

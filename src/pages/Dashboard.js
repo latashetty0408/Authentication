@@ -1,55 +1,68 @@
-import ActivityCard from "../components/Cards/ActivityCard";
-import BalanceCard from "../components/Cards/BalanceCard";
-import Layout from "../components/Layout/Layout";
-import TransfersListCard from "../components/Cards/TransfersListCard";
-import CreditBalanceCard from "../components/Cards/CreditBalanceCard";
-import TrymeCard from "../components/Cards/TrymeCard";
 import { useApp } from "../Context/Context";
+import SortableItem from "../components/DragAndDrop/DragAndDrop";
+import Layout from "../components/Layout/Layout";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
 
 export default function Dashboard() {
-    const { activityData } = useApp()
+  const { rowFirst, setRowFirst, rowSecond, setRowSecond, rowThird, setRowThird } = useApp();
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    if (rowFirst.some((item) => item.id === active.id)) {
+      const oldIndex = rowFirst.findIndex((item) => item.id === active.id);
+      const newIndex = rowFirst.findIndex((item) => item.id === over.id);
+      setRowFirst(arrayMove(rowFirst, oldIndex, newIndex));
+    } else if (rowSecond.some((item) => item.id === active.id)) {
+      const oldIndex = rowSecond.findIndex((item) => item.id === active.id);
+      const newIndex = rowSecond.findIndex((item) => item.id === over.id);
+      setRowSecond(arrayMove(rowSecond, oldIndex, newIndex));
+    } else if (rowThird.some((item) => item.id === active.id)) {
+      const oldIndex = rowThird.findIndex((item) => item.id === active.id);
+      const newIndex = rowThird.findIndex((item) => item.id === over.id);
+      setRowThird(arrayMove(rowThird, oldIndex, newIndex));
+    }
+  };
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <ActivityCard
-          title="Activity"
-          bgColor="bg-gradient-to-r from-indigo-400 to-indigo-700"
-          textColor="text-white"
-          amount={activityData.current.toFixed(2)}
-          chart
-        />
-        <ActivityCard
-          title="Spent this month"
-          bgColor="bg-white"
-          textColor="text-black"
-          amount={activityData.spent.toFixed(2)}
-          progressBar
-        />
-        <ActivityCard
-          title="Earnings"
-          bgColor="bg-white"
-          textColor="text-black"
-          amount={activityData.earnings.toFixed(2)}
-          CircularIcon
-        />
-        <ActivityCard
-          title="Earnings"
-          bgColor="bg-gradient-to-r from-indigo-400 to-indigo-700"
-          textColor="text-white"
-          amount={activityData.earnings.toFixed(2)}
-          chart
-        />
-      </div>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={rowFirst.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            {rowFirst.map((item) => (
+              <SortableItem key={item.id} id={item.id}>
+                {item.component}
+              </SortableItem>
+            ))}
+          </div>
+        </SortableContext>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 mb-6">
-        <BalanceCard />
-        <TransfersListCard />
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 mb-6">
-        <CreditBalanceCard />
-        <TrymeCard />
-      </div>
+        <SortableContext items={rowSecond.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 mb-6">
+            {rowSecond.map((item) => (
+              <SortableItem key={item.id} id={item.id}>
+                {item.component}
+              </SortableItem>
+            ))}
+          </div>
+        </SortableContext>
+
+        <SortableContext items={rowThird.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 mb-6">
+            {rowThird.map((item) => (
+              <SortableItem key={item.id} id={item.id}>
+                {item.component}
+              </SortableItem>
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
     </Layout>
   );
 }

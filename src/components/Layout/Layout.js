@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Menu } from "lucide-react"
 import { useApp } from "../../Context/Context";
 
-export default function Layout({ children }) {
+function Layout({ children }) {
 
   const { isSidebarOpen, setIsSidebarOpen } = useApp()
 
@@ -37,3 +37,4 @@ export default function Layout({ children }) {
   )
 }
 
+export default Layout;

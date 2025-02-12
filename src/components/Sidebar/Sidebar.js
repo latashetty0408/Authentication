@@ -1,13 +1,14 @@
-import { LayoutGrid, Activity, Library, Shield, Calendar, CreditCard, Settings, X } from "lucide-react"
 import clsx from "clsx";
 import { useApp } from "../../Context/Context";
+import { Link } from "react-router-dom";
+import { X } from "lucide-react";
 
 export default function Sidebar() {
   const { isSidebarOpen, setIsSidebarOpen, activeMenu, setActiveMenu, navigation } = useApp()
 
   return (
     <div
-      className={clsx("fixed inset-y-0 left-0 z-50 h-full w-64 transform bg-white transition-transform duration-200 ease-in-out lg:translate-x-0",
+      className={clsx("flex flex-col overflow-auto fixed inset-y-0 left-0 z-50 h-full w-64 transform bg-white transition-transform duration-200 ease-in-out lg:translate-x-0",
         isSidebarOpen ? "translate-x-0" : "-translate-x-full")}
     >
       <div className="flex justify-between items-center p-6">
@@ -18,11 +19,10 @@ export default function Sidebar() {
 
       <nav className="flex-1 space-y-1 px-4">
         {navigation.map((item) => (
-          <a
+          <Link
             key={item.name}
-            href={item.href}
-            onClick={(e) => {
-              e.preventDefault()
+            to={item.to}
+            onClick={() => {
               setActiveMenu(item.name)
               setIsSidebarOpen(false)
             }}
@@ -31,7 +31,7 @@ export default function Sidebar() {
           >
             <item.icon className="h-5 w-5 mr-3" />
             {item.name}
-          </a>
+          </Link>
         ))}
       </nav>
 

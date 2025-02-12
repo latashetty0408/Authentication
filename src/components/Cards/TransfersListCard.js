@@ -1,7 +1,7 @@
 import { MoveRight } from "lucide-react";
 import { Logo } from "../../assets/images/Index";
 
-export default function TransfersListCard() {
+function TransfersListCard() {
   const transfers = [
     {
       name: "Alex Manda",
@@ -44,11 +44,10 @@ export default function TransfersListCard() {
               </div>
             </div>
             <span
-              className={`${
-                transfer.amount.startsWith("+")
+              className={`${transfer.amount.startsWith("+")
                   ? "text-green-500 bg-green-200 "
                   : "text-red-500 bg-red-200"
-              } rounded-xl px-2 py-1`}
+                } rounded-xl px-2 py-1`}
             >
               {transfer.amount}
             </span>
@@ -63,3 +62,5 @@ export default function TransfersListCard() {
     </div>
   );
 }
+
+export default TransfersListCard;
