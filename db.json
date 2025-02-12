@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": 1739384137031,
+      "firstName": "test",
+      "lastName": "test",
+      "mobileNumber": "6000000000",
+      "email": "XYZ@gmail.com",
+      "nationality": "IN",
+      "dateOfBirth": "2025-02-12",
+      "gender": "male",
+      "occupation": "student",
+      "yearsOfExperience": "0-2",
+      "website": "http://localhost:3000/signup",
+      "password": "Abc@1234",
+      "confirmPassword": "Abc@1234"
+    },
+    {
+      "id": 1739384495277,
+      "firstName": "abc",
+      "lastName": "abc",
+      "mobileNumber": "6000000000",
+      "email": "XYZ@gmail.com",
+      "nationality": "IN",
+      "dateOfBirth": "2025-02-12",
+      "gender": "male",
+      "occupation": "student",
+      "yearsOfExperience": "0-2",
+      "website": "http://localhost:3000/signup",
+      "password": "Abc@1234",
+      "confirmPassword": "Abc@123",
+      "username": "XYZ@gmail.com"
+    }
+  ]
+}
