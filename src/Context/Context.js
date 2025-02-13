@@ -46,10 +46,13 @@ export function AppProvider({ children }) {
   ];
 
   const nationalityOptions = [
-    { value: 'IN', label: 'India' },
-    { value: 'usa', label: 'USA' },
-    { value: 'canada', label: 'Canada' },
-    { value: 'uk', label: 'UK' },
+    { "value": "IN", "label": "Indian" },
+    { "value": "USA", "label": "USA" },
+    { "value": "CAN", "label": "Canada" },
+    { "value": "UK", "label": "UK" },
+    { "value": "AUS", "label": "Australia" },
+    { "value": "CHN", "label": "China" },
+    { "value": "OTH", "label": "Other" }
   ];
 
   const yearsOfExperienceOptions = [
