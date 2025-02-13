@@ -1,36 +1,34 @@
 {
   "users": [
     {
-      "id": "1739404598369",
-      "firstName": "Test",
-      "lastName": "Test",
-      "mobileNumber": "6000000000",
-      "email": "Test@gmail.com",
-      "nationality": "IN",
-      "dateOfBirth": "1978-05-04",
-      "gender": "male",
-      "occupation": "student",
-      "yearsOfExperience": "0-2",
-      "website": "",
-      "password": "Test@1234",
-      "confirmPassword": "Test@1234",
-      "username": "Test@gmail.com"
-    },
-    {
-      "id": 1739415139410,
+      "id": "1739470241150",
       "firstName": "Priyanka",
       "lastName": "Salunke",
-      "mobileNumber": "8457596515",
-      "email": "priya@gmail.com",
+      "mobileNumber": "6000000000",
+      "email": "priyanka@gmail.com",
       "nationality": "IN",
-      "dateOfBirth": "1978-04-15",
+      "dateOfBirth": "1999-08-04",
       "gender": "female",
-      "occupation": "student",
+      "occupation": "professional",
       "yearsOfExperience": "0-2",
       "website": "",
-      "password": "Priya@1234",
-      "confirmPassword": "Priya@1234",
-      "username": "priya@gmail.com"
+      "password": "$2a$10$Gp8U8gg4s9gkNLgJOyS56uXT.bdvE6H5tP3.MqWRt.f.O5U5tCuUq",
+      "username": "priyanka@gmail.com"
+    },
+    {
+      "id": 1739471330175,
+      "firstName": "vishwanath",
+      "lastName": "nijampurkar",
+      "mobileNumber": "6000000001",
+      "email": "vishwa@gmail.com",
+      "nationality": "IN",
+      "dateOfBirth": "1996-05-04",
+      "gender": "male",
+      "occupation": "professional",
+      "yearsOfExperience": "0-2",
+      "website": "",
+      "password": "$2a$10$WRatSzDRa4T5zglma..HkOekXFpY59cO2450eXKW.y6iE1MNwTZVO",
+      "username": "vishwa@gmail.com"
     }
   ]
 }

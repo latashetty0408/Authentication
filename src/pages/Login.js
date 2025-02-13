@@ -10,15 +10,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Logo } from '../assets/images/Index';
 import { useApp } from '../Context/Context';
 import Loader from '../components/Loader/Loader';
+import bcrypt from "bcryptjs";
 
 const schema = z.object({
   username: z.string().min(1, 'Username is required'),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
+  password: z.string().nonempty('Password is required').min(8, 'Password must be at least 8 characters long'),
 });
 
 function Login() {
   const apiUrl = process.env.REACT_APP_API_URL;
-  console.log('API URL:', apiUrl);
+  // console.log('API URL:', apiUrl);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
@@ -36,16 +37,25 @@ function Login() {
     setLoading(true);
     try {
       const response = await axios.get(`${apiUrl}/users`);
-      const user = response.data.find(user => user.username === data.username && user.password === data.password);
+      const user = response.data.find(user => user.username === data.username);
+      
       if (user) {
-        console.log('Login successful');
-        const { id, firstName, lastName, email } = user;
-        sessionStorage.setItem('userData', JSON.stringify({ id, firstName, lastName, email }));
-        setTimeout(() => {
+        const isMatch = await bcrypt.compare(data.password, user.password);
+        console.log(user.password)
+        console.log(data.password)
+        if(isMatch) {
+          console.log('Login successful');
+          const { id, firstName, lastName, email } = user;
+          sessionStorage.setItem('userData', JSON.stringify({ id, firstName, lastName, email }));
+          setTimeout(() => {
+            setLoading(false);
+            navigate('/dashboard');
+            setAuthError('');
+          }, 1500);
+        } else {
+          setAuthError('Invalid username or password');
           setLoading(false);
-          navigate('/dashboard');
-          setAuthError('');
-        }, 1500);
+        }
       } else {
         setAuthError('Invalid username or password');
         setLoading(false);

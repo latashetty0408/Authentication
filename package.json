@@ -8,6 +8,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@hookform/resolvers": "^4.0.0",
     "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "cra-template": "1.2.0",
     "lucide-react": "^0.475.0",
