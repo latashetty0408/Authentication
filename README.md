@@ -1,5 +1,5 @@
 # AXS_Assignment
-- This is a web application with authentication (sign-up, login) and a dashboard. The backend is powered by JSON Server to simulate a database.
+- This is a web application with authentication (sign-up, login) and a dashboard. The API is powered by JSON Server to simulate a database.
 
 # Technology Stack
 Frontend
