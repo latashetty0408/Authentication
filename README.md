@@ -25,4 +25,4 @@ Api
 3. Api Setup (JSON Server)
 -> Install JSON Server:-> npm install -g json-server
 -> Start the JSON Server:-> npm run server
--> The backend will run on http://localhost:4000
+-> The Api will run on http://localhost:4000
