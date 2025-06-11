@@ -14,8 +14,8 @@ Api
 
 # Setup Instructions
 1. Clone the Repository
--> git clone https://github.com/latashetty0408/AXS_Assignment.git
--> cd AXS_Assignment
+-> git clone https://github.com/latashetty0408/Authentication.git
+-> cd Authentication
 
 2. Frontend Setup
 -> npm install
